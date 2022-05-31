@@ -1,15 +1,16 @@
+import { SIGHUP } from 'constants';
 /*
   В функцию appendToBody передаются 3 параметра:
   tag - имя тега, content - содержимое тега и count - количество вставок.
   Необходимо, чтобы функция осуществила вставку на страницу указанный тег с указанным содержимым указанное число раз.
   Считаем, что всегда передается тег, допускающий вставку текста в качестве своего содержимого (P, DIV, I и пр.).
 */
-import { SIGHUP } from 'constants';
+
 
 export function appendToBody(tag, content, count) {
     for (let i = 0; i < count; i++) {
-        let element = document.createElement(tag);
-        element.innerHTML = content;
+        let elem = document.createElement(tag);
+        elem.innerHTML = content;
         document.body.append(elem);
     }
 }
