@@ -4,7 +4,14 @@
   Необходимо, чтобы функция осуществила вставку на страницу указанный тег с указанным содержимым указанное число раз.
   Считаем, что всегда передается тег, допускающий вставку текста в качестве своего содержимого (P, DIV, I и пр.).
 */
+import { SIGHUP } from 'constants';
+
 export function appendToBody(tag, content, count) {
+    for (let i = 0; i < count; i++) {
+        let element = document.createElement(tag);
+        element.innerHTML = content;
+        document.body.append(elem);
+    }
 }
 
 /*
@@ -15,6 +22,23 @@ export function appendToBody(tag, content, count) {
   Сформированное дерево верните в качестве результата работы функции.
 */
 export function generateTree(childrenCount, level) {
+    function genTreeRecursively(parent, childrenCount, lvl, currentLvl) {
+        for (let i = 0; i < childrenCount; i++) {
+            let child = document.createElement('div');
+            child.className = `item_${currentLvl}`;
+            parent.appendChild(child);
+
+            if (currentLvl < lvl) {
+                genTreeRecursively(child, childrenCount, lvl, currentLvl + 1);
+            }
+        }
+    }
+
+    let root = document.createElement('div');
+    root.className = 'item_1';
+    genTreeRecursively(root, childrenCount, level, 2);
+
+    return root;
 }
 
 /*
@@ -26,4 +50,13 @@ export function generateTree(childrenCount, level) {
   Сформированное дерево верните в качестве результата работы функции.
 */
 export function replaceNodes() {
+    let tree = generateTree(2, 3);
+    for (let child of tree.querySelectorAll('.item_2')) {
+        let section = document.createElement('section');
+        section.innerHTML = child.innerHTML;
+        section.className = 'item_2';
+        tree.replaceChild(section, child);
+    }
+
+    return tree;
 }
